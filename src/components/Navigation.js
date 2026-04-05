@@ -2,12 +2,15 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
+import { getCurrentUser, logout } from '@/services/authService';
 
 export default function Navigation() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [user, setUser] = useState(null);
   const pathname = usePathname();
+  const router = useRouter();
 
   useEffect(() => {
     const checkMobile = () => {
@@ -18,6 +21,16 @@ export default function Navigation() {
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
+
+  useEffect(() => {
+    const currentUser = getCurrentUser();
+    setUser(currentUser);
+  }, []);
+
+  const handleLogout = () => {
+    logout();
+    router.push('/login');
+  };
 
   const navigation = [
     { name: 'Dashboard', href: '/', icon: '📊' },
@@ -88,12 +101,22 @@ export default function Navigation() {
       </nav>
       
       <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-200">
-        <div className="bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg p-4 text-white">
-          <h3 className="font-semibold text-sm mb-1">Pro Tips</h3>
-          <p className="text-xs opacity-90">
-            Use the smart search to find high-value leads in your area!
-          </p>
-        </div>
+        {user && (
+          <div className="bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg p-4 text-white">
+            <div className="flex items-center justify-between mb-2">
+              <h3 className="font-semibold text-sm">{user.name}</h3>
+              <button
+                onClick={handleLogout}
+                className="text-white/80 hover:text-white text-xs"
+                title="Logout"
+              >
+                🚪
+              </button>
+            </div>
+            <p className="text-xs opacity-90">{user.email}</p>
+            <p className="text-xs opacity-75 mt-1 capitalize">{user.role}</p>
+          </div>
+        )}
       </div>
     </div>
   );

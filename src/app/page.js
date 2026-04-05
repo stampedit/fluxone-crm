@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { getDashboardStats } from '@/services/dataService';
 import Navigation from '@/components/Navigation';
+import AuthGuard from '@/components/AuthGuard';
 
 export default function Dashboard() {
   const [stats, setStats] = useState({
@@ -43,16 +44,14 @@ export default function Dashboard() {
   );
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Navigation />
-      <div className="md:ml-64 mb-16 md:mb-0">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="mb-8">
-            <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
-            <p className="text-gray-600 mt-2">Welcome to FluxOne CRM</p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+    <AuthGuard>
+      <div className="min-h-screen bg-gray-50">
+        <Navigation />
+        <div className="md:ml-64 mb-16 md:mb-0">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div className="mb-8">
+              <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
+              <p className="text-gray-600 mt-2">Welcome to FluxOne CRM</p>
             <StatCard
               title="Total Leads"
               value={stats.totalLeads}
@@ -116,5 +115,6 @@ export default function Dashboard() {
         </div>
       </div>
     </div>
+    </AuthGuard>
   );
 }
