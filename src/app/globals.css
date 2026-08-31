@@ -1176,3 +1176,151 @@ html, body {
   width: 34px;
   height: 34px;
 }
+
+/* ========== DEVICE-AWARE RESPONSIVE LAYOUT ========== */
+
+body[data-device="desktop"] .crm-sidebar {
+  width: 260px;
+}
+
+body[data-device="desktop"] .crm-main {
+  margin-left: 260px;
+  width: calc(100% - 260px);
+  max-width: calc(100vw - 260px);
+}
+
+body[data-device="desktop"] .crm-content {
+  padding: 32px 40px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+body[data-device="tablet"] .crm-sidebar {
+  width: 200px;
+}
+
+body[data-device="tablet"] .crm-main {
+  margin-left: 200px;
+  width: calc(100% - 200px);
+  max-width: calc(100vw - 200px);
+}
+
+body[data-device="tablet"] .crm-content {
+  padding: 24px 28px;
+  max-width: 100%;
+}
+
+body[data-device="mobile"] {
+  /* make room for bottom nav */
+  padding-bottom: 70px;
+}
+
+body[data-device="mobile"] .crm-sidebar {
+  width: 100%;
+  height: 70px;
+  min-height: auto;
+  top: auto;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  padding: 8px 0;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  border-bottom: none;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+body[data-device="mobile"] .crm-sidebar nav {
+  flex-direction: row;
+  padding: 0;
+  gap: 4px;
+  flex: 1;
+  justify-content: space-around;
+  align-items: center;
+}
+
+body[data-device="mobile"] .crm-sidebar .sidebar-item {
+  flex-direction: column;
+  gap: 2px;
+  padding: 4px 6px;
+  font-size: 11px;
+  min-width: 56px;
+}
+
+body[data-device="mobile"] .crm-sidebar .sidebar-item svg {
+  width: 22px;
+  height: 22px;
+}
+
+body[data-device="mobile"] .crm-sidebar .sidebar-label {
+  display: block;
+  font-size: 10px;
+}
+
+body[data-device="mobile"] .crm-main {
+  margin-left: 0;
+  width: 100%;
+  max-width: 100vw;
+  min-height: 100vh;
+}
+
+body[data-device="mobile"] .crm-content {
+  padding: 16px;
+  max-width: 100%;
+}
+
+body[data-device="mobile"] .page-title {
+  font-size: 22px;
+}
+
+body[data-device="mobile"] .page-subtitle {
+  font-size: 14px;
+}
+
+body[data-device="mobile"] .card {
+  margin-bottom: 16px;
+}
+
+body[data-device="mobile"] .card-header,
+body[data-device="mobile"] .card-body,
+body[data-device="mobile"] .card-footer {
+  padding: 16px;
+}
+
+body[data-device="mobile"] .btn {
+  width: 100%;
+  justify-content: center;
+  min-height: 44px;
+}
+
+body[data-device="mobile"] input,
+body[data-device="mobile"] select,
+body[data-device="mobile"] textarea {
+  min-height: 44px;
+  font-size: 16px;
+}
+
+body[data-device="mobile"] .grid-cols-2,
+body[data-device="mobile"] .grid-cols-3,
+body[data-device="mobile"] .grid-cols-4 {
+  grid-template-columns: 1fr;
+}
+
+body[data-device="mobile"] .table th,
+body[data-device="mobile"] .table td {
+  padding: 8px 10px;
+  font-size: 14px;
+}
+
+body[data-device="mobile"] .modal-content {
+  margin: 16px;
+  max-width: calc(100% - 32px);
+  max-height: calc(100% - 100px);
+}
+
+body[data-device="mobile"] .page-header {
+  margin-bottom: 20px;
+}
