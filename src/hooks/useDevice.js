@@ -14,6 +14,7 @@ export function useDevice() {
   );
 
   useEffect(() => {
+    setDevice(getDevice(window.innerWidth));
     const handle = () => setDevice(getDevice(window.innerWidth));
     window.addEventListener('resize', handle);
     return () => window.removeEventListener('resize', handle);

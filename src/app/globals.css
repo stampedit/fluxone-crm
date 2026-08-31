@@ -1353,3 +1353,33 @@ body[data-device="mobile"] .lead-card > div:last-child {
   justify-content: center;
   width: 100%;
 }
+
+/* Mobile centered, readable headers and text */
+body[data-device="mobile"] .page-header,
+body[data-device="mobile"] .page-title,
+body[data-device="mobile"] .page-subtitle {
+  text-align: center;
+}
+
+body[data-device="mobile"] .page-title {
+  font-size: 26px;
+  font-weight: 800;
+}
+
+body[data-device="mobile"] .page-subtitle {
+  font-size: 15px;
+}
+
+body[data-device="mobile"] .card-header {
+  text-align: center;
+}
+
+body[data-device="mobile"] .card {
+  border-radius: 16px;
+}
+
+body[data-device="mobile"] .card-body p,
+body[data-device="mobile"] .card-body h2,
+body[data-device="mobile"] .card-body h3 {
+  line-height: 1.5;
+}
