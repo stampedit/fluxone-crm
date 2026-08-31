@@ -1244,20 +1244,20 @@ body[data-device="mobile"] .crm-sidebar nav {
 
 body[data-device="mobile"] .crm-sidebar .sidebar-item {
   flex-direction: column;
-  gap: 2px;
-  padding: 4px 6px;
-  font-size: 11px;
-  min-width: 56px;
+  gap: 4px;
+  padding: 6px 8px;
+  font-size: 12px;
+  min-width: 60px;
 }
 
 body[data-device="mobile"] .crm-sidebar .sidebar-item svg {
-  width: 22px;
-  height: 22px;
+  width: 28px;
+  height: 28px;
 }
 
 body[data-device="mobile"] .crm-sidebar .sidebar-label {
   display: block;
-  font-size: 10px;
+  font-size: 11px;
 }
 
 body[data-device="mobile"] .crm-main {
@@ -1291,8 +1291,6 @@ body[data-device="mobile"] .card-footer {
 }
 
 body[data-device="mobile"] .btn {
-  width: 100%;
-  justify-content: center;
   min-height: 44px;
 }
 
@@ -1323,4 +1321,38 @@ body[data-device="mobile"] .modal-content {
 
 body[data-device="mobile"] .page-header {
   margin-bottom: 20px;
+}
+
+/* Mobile search and result card layouts */
+body[data-device="mobile"] .search-row {
+  flex-direction: column;
+  gap: 10px;
+}
+
+body[data-device="mobile"] .search-row input,
+body[data-device="mobile"] .search-row button {
+  width: 100%;
+  min-height: 52px;
+}
+
+body[data-device="mobile"] .business-result,
+body[data-device="mobile"] .lead-card {
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+}
+
+body[data-device="mobile"] .business-result > div:first-child,
+body[data-device="mobile"] .lead-card > div:first-child {
+  width: 100%;
+}
+
+body[data-device="mobile"] .business-result > div:last-child,
+body[data-device="mobile"] .lead-card > div:last-child {
+  margin-left: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
 }

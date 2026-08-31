@@ -394,7 +394,7 @@ export default function LeadsPage() {
                     <label style={{ display: 'block', fontSize: '14px', fontWeight: '500', color: 'var(--text-primary)', marginBottom: '6px' }}>
                       🔍 Search Businesses (Google Places API)
                     </label>
-                    <div style={{ display: 'flex', gap: '8px' }}>
+                    <div className="search-row" style={{ display: 'flex', gap: '8px' }}>
                       <input
                         type="text"
                         value={businessSearchQuery}
@@ -481,7 +481,7 @@ export default function LeadsPage() {
                           e.currentTarget.style.backgroundColor = business.isSetupMessage ? 'var(--warning-bg)' : 'var(--bg-secondary)';
                         }
                       }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                        <div className="business-result" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                           <div style={{ flex: 1 }}>
                             <h3 style={{ fontSize: '16px', fontWeight: '600', color: business.isSetupMessage ? 'var(--warning)' : 'var(--text-primary)', margin: '0 0 8px 0' }}>
                               {business.name}
@@ -685,7 +685,7 @@ export default function LeadsPage() {
                 <div className="card-body" style={{ padding: '0' }}>
                   <div style={{ display: 'flex', flexDirection: 'column' }}>
                     {filteredLeads.map((lead) => (
-                      <div key={`${lead.id}-${lead.createdAt}`} style={{ 
+                      <div className="lead-card" key={`${lead.id}-${lead.createdAt}`} style={{ 
                         padding: '20px 24px', 
                         borderBottom: '1px solid var(--border)',
                         display: 'flex',
