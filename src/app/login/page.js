@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { login } from '@/services/authService';
+import { login, getCurrentUser } from '@/services/authService';
 
 export default function LoginPage() {
   const [formData, setFormData] = useState({
@@ -15,141 +15,168 @@ export default function LoginPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
     setError('');
+    setLoading(true);
+
+    console.log('=== LOGIN ATTEMPT ===');
+    console.log('Email:', formData.email);
+    console.log('Password provided:', formData.password ? 'Yes' : 'No');
 
     try {
-      const result = await login(formData.email, formData.password);
+      console.log('Calling login function...');
+      const user = await login(formData.email, formData.password);
+      console.log('Login successful:', user);
       
-      if (result.success) {
-        router.push('/');
+      // Redirect based on role and onboarding status
+      if (user.role === 'employee' && !user.onboardingComplete) {
+        console.log('Redirecting to onboarding...');
+        router.push('/onboarding');
       } else {
-        setError(result.error);
+        console.log('Redirecting to dashboard...');
+        router.push('/');
       }
-    } catch (err) {
-      setError('Login failed. Please try again.');
+    } catch (error) {
+      console.error('=== LOGIN ERROR ===', error);
+      console.error('Error message:', error.message);
+      setError(error.message);
     } finally {
       setLoading(false);
+      console.log('=== LOGIN ATTEMPT END ===');
     }
   };
 
-  const handleInputChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
-
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-      <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="flex justify-center">
-          <div className="w-16 h-16 bg-blue-600 rounded-lg flex items-center justify-center">
-            <span className="text-white font-bold text-2xl">F</span>
+    <div style={{ minHeight: '100vh', background: 'var(--bg-secondary)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px' }}>
+      <div className="card" style={{ maxWidth: '400px', width: '100%' }}>
+        <div className="card-body">
+          {/* Logo */}
+          <div style={{ textAlign: 'center', marginBottom: '32px' }}>
+            <div style={{
+              width: '60px',
+              height: '60px',
+              margin: '0 auto 16px',
+              position: 'relative',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}>
+              <div style={{
+                position: 'absolute',
+                width: '60px',
+                height: '60px',
+                borderRadius: '50%',
+                background: 'linear-gradient(135deg, #dc2626 0%, #991b1b 100%)',
+                boxShadow: '0 4px 20px rgba(220, 38, 38, 0.4)'
+              }}></div>
+              <div className="car-logo-large" style={{
+                position: 'absolute',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}>
+                <svg viewBox="0 0 64 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <line className="speed-line" x1="2" y1="10" x2="10" y2="10" stroke="#dc2626" strokeWidth="2" strokeLinecap="round"/>
+                  <line className="speed-line" x1="4" y1="16" x2="12" y2="16" stroke="#dc2626" strokeWidth="2" strokeLinecap="round"/>
+                  <line className="speed-line" x1="2" y1="22" x2="10" y2="22" stroke="#dc2626" strokeWidth="2" strokeLinecap="round"/>
+                  <g className="car-body">
+                    <path d="M14 22 L16 14 L24 12 L30 8 L40 8 L46 12 L52 14 L54 22 Z" fill="#dc2626"/>
+                    <path d="M24 12 L30 8 L40 8 L46 12 L42 12 L38 9 L32 9 L28 12 Z" fill="#991b1b"/>
+                    <path d="M28 12 L32 9 L37 9 L37 12 Z" fill="rgba(255,255,255,0.85)"/>
+                    <path d="M38 12 L38 9 L41 9 L44 12 Z" fill="rgba(255,255,255,0.85)"/>
+                    <circle className="headlight" cx="51" cy="15" r="2" fill="#fff" opacity="0.9"/>
+                    <rect x="15" y="14" width="2" height="3" rx="0.5" fill="#ef4444"/>
+                    <circle cx="22" cy="22" r="4" fill="#0a0a0a" stroke="#dc2626" strokeWidth="1.5"/>
+                    <circle cx="22" cy="22" r="1.5" fill="#dc2626"/>
+                    <circle cx="46" cy="22" r="4" fill="#0a0a0a" stroke="#dc2626" strokeWidth="1.5"/>
+                    <circle cx="46" cy="22" r="1.5" fill="#dc2626"/>
+                  </g>
+                </svg>
+              </div>
+            </div>
+            <h1 style={{ fontSize: '24px', fontWeight: '700', color: 'var(--text-primary)', margin: '0 0 8px 0' }}>
+              Minor Cleaning Service
+            </h1>
+            <p style={{ fontSize: '16px', color: 'var(--text-secondary)', margin: '0' }}>
+              Sign in to your account
+            </p>
           </div>
-        </div>
-        <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-          FluxOne CRM
-        </h2>
-        <p className="mt-2 text-center text-sm text-gray-600">
-          Sign in to your cleaning business account
-        </p>
-      </div>
 
-      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-          <form className="space-y-6" onSubmit={handleSubmit}>
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                Email address
-              </label>
-              <div className="mt-1">
+          <form onSubmit={handleSubmit}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              <div>
+                <label style={{ display: 'block', fontSize: '14px', fontWeight: '500', color: 'var(--text-primary)', marginBottom: '6px' }}>
+                  Email Address
+                </label>
                 <input
-                  id="email"
-                  name="email"
                   type="email"
-                  autoComplete="email"
-                  required
                   value={formData.email}
-                  onChange={handleInputChange}
-                  className="form-input"
+                  onChange={(e) => setFormData({...formData, email: e.target.value})}
+                  className="input"
                   placeholder="Enter your email"
-                />
-              </div>
-            </div>
-
-            <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-                Password
-              </label>
-              <div className="mt-1">
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  autoComplete="current-password"
                   required
-                  value={formData.password}
-                  onChange={handleInputChange}
-                  className="form-input"
-                  placeholder="Enter your password"
                 />
               </div>
-            </div>
-
-            {error && (
-              <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-md text-sm">
-                {error}
+              
+              <div>
+                <label style={{ display: 'block', fontSize: '14px', fontWeight: '500', color: 'var(--text-primary)', marginBottom: '6px' }}>
+                  Password
+                </label>
+                <input
+                  type="password"
+                  value={formData.password}
+                  onChange={(e) => setFormData({...formData, password: e.target.value})}
+                  className="input"
+                  placeholder="Enter your password"
+                  required
+                />
               </div>
-            )}
 
-            <div>
+              {/* Error Message */}
+              {error && (
+                <div style={{
+                  background: 'var(--error)',
+                  color: 'white',
+                  padding: '12px',
+                  borderRadius: '6px',
+                  fontSize: '14px'
+                }}>
+                  {error}
+                </div>
+              )}
+
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="btn btn-primary btn-lg"
+                style={{ width: '100%' }}
               >
-                {loading ? (
-                  <div className="flex items-center">
-                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                    </svg>
-                    Signing in...
-                  </div>
-                ) : (
-                  'Sign in'
-                )}
+                {loading ? 'Signing in...' : 'Sign In'}
               </button>
             </div>
           </form>
 
-          <div className="mt-6">
-            <div className="relative">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-gray-300" />
+          {/* Business Account */}
+          <div className="business-account" style={{ marginTop: '24px', padding: '16px', background: 'var(--bg-secondary)', borderRadius: '8px', border: '1px solid var(--border)' }}>
+            <h3 style={{ fontSize: '14px', fontWeight: '600', color: 'var(--text-primary)', margin: '0 0 12px 0', textAlign: 'center' }}>
+              Business Account
+            </h3>
+            <div style={{ fontSize: '12px', color: 'var(--text-secondary)', lineHeight: '1.5' }}>
+              <div style={{ marginBottom: '8px' }}>
+                <strong>Owner:</strong> james@minorcleaning.com / password123
               </div>
-              <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-white text-gray-500">Demo Credentials</span>
+              <div style={{ fontSize: '11px', color: 'var(--text-muted)', textAlign: 'center' }}>
+                Minor Cleaning Service
               </div>
-            </div>
-
-            <div className="mt-6 bg-gray-50 rounded-lg p-4">
-              <p className="text-sm text-gray-600 mb-2">
-                <strong>Email:</strong> admin@fluxone.com
-              </p>
-              <p className="text-sm text-gray-600">
-                <strong>Password:</strong> admin123
-              </p>
             </div>
           </div>
 
-          <div className="mt-6 text-center">
-            <p className="text-sm text-gray-600">
-              Don't have an account?{' '}
-              <button className="font-medium text-blue-600 hover:text-blue-500">
-                Contact admin
-              </button>
+          {/* Register Link */}
+          <div style={{ textAlign: 'center', marginTop: '24px' }}>
+            <p style={{ fontSize: '14px', color: 'var(--text-secondary)' }}>
+              New employee?{' '}
+              <a href="/register" style={{ color: 'var(--primary)', textDecoration: 'none' }}>
+                Create your account
+              </a>
             </p>
           </div>
         </div>

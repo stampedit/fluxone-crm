@@ -1,22 +1,106 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# FluxOne - Professional Cleaning Business Management System
 
-## Getting Started
+A comprehensive business management system for cleaning service companies with real-time business search and lead generation capabilities.
 
-First, run the development server:
+## Features
+
+- **Multi-Account System**: Secure account-based data separation
+- **Real Business Search**: Google Places API integration for finding businesses anywhere
+- **Lead Management**: Convert searched businesses into leads
+- **Email Enrichment**: Hunter.io API integration for email finding
+- **Client Management**: Track clients and cleaning contracts
+- **Job Scheduling**: Manage cleaning jobs and schedules
+- **Dashboard Analytics**: Real-time business metrics
+
+## Quick Start
+
+### 1. Clone and Install
+
+```bash
+git clone https://github.com/stampedit/fluxone.git
+cd fluxone
+npm install
+```
+
+### 2. Environment Setup
+
+Copy the environment template:
+
+```bash
+cp env.example .env.local
+```
+
+Add your Google API key to `.env.local`:
+
+```env
+NEXT_PUBLIC_GOOGLE_PLACES_API_KEY=your_google_api_key_here
+```
+
+### 3. Get Google Places API Key
+
+1. Go to [Google Cloud Console](https://console.cloud.google.com/)
+2. Create a new project or select existing one
+3. Enable "Places API" from the API library
+4. Create credentials (API Key)
+5. Add your API key to `.env.local`
+
+### 4. Run Development Server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 5. Login
+
+Use these credentials to access your system:
+- **Email**: james@minorcleaning.com
+- **Password**: password123
+
+## Deployment
+
+### Vercel Deployment
+
+1. Push your code to GitHub
+2. Connect your repository to [Vercel](https://vercel.com)
+3. Add environment variables in Vercel dashboard:
+   - `NEXT_PUBLIC_GOOGLE_PLACES_API_KEY`: Your Google Places API key
+4. Deploy
+
+### Environment Variables
+
+- `NEXT_PUBLIC_GOOGLE_PLACES_API_KEY`: Required for business search
+- `NEXT_PUBLIC_HUNTER_API_KEY`: Optional for email enrichment
+
+## Usage
+
+### Business Search
+
+1. Navigate to the Leads page
+2. Use the search bar to find businesses:
+   - "cleaning companies Houston TX"
+   - "dental offices Miami FL"
+   - "restaurants Los Angeles CA"
+3. Click "Add to Leads" to convert businesses to leads
+
+### Adding Real Data
+
+The system starts empty. Add your real:
+- Clients and contracts
+- Cleaning jobs and schedules
+- Business leads from search results
+
+## Tech Stack
+
+- **Frontend**: Next.js 16, React, Tailwind CSS
+- **APIs**: Google Places API, Hunter.io API
+- **Deployment**: Vercel
+- **Authentication**: Custom auth system
+
+## Support
+
+For issues or questions, create an issue on GitHub.
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 

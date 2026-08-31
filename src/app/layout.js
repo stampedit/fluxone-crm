@@ -4,8 +4,8 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
-  title: 'FluxOne CRM - Cleaning Business Management',
-  description: 'Professional CRM for cleaning businesses',
+  title: 'Minor Cleaning Service CRM',
+  description: 'Find leads, track your pipeline, and grow your cleaning business',
 }
 
 export default function RootLayout({ children }) {

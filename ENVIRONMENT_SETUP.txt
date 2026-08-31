@@ -1,0 +1,18 @@
+# Create a file named .env.local in your project root with the following content:
+
+# Hunter.io API for Email Enrichment
+NEXT_PUBLIC_HUNTER_API_KEY=ec175579ca379adc1acd3399f2cbd952ca0ec57b
+
+# Supabase Backend
+NEXT_PUBLIC_SUPABASE_URL=https://glcrfbtfadvcnpnyklxo.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=glcrfbtfadvcnpnyklxo
+
+# Google Places API for Business Search
+NEXT_PUBLIC_GOOGLE_PLACES_API_KEY=AIzaSyC8um-gbkcir6dAS80OqmgEQT1jczPl-Ok
+
+# INSTRUCTIONS:
+# 1. Create a new file called .env.local in your project root
+# 2. Copy the content above into that file
+# 3. Save the file
+# 4. Restart your development server (npm run dev)
+# 5. Run the SUPABASE_SETUP.sql script in your Supabase project
