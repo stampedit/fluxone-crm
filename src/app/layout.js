@@ -13,6 +13,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `typeof window !== 'undefined' && (function(){var w=window.innerWidth;var d=w<768?'mobile':w<1024?'tablet':'desktop';if(document.body)document.body.dataset.device=d;})()`
+          }}
+        />
         <DeviceProvider>{children}</DeviceProvider>
       </body>
     </html>

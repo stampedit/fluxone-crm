@@ -1210,10 +1210,6 @@ body[data-device="tablet"] .crm-content {
   max-width: 100%;
 }
 
-body[data-device="mobile"] {
-  /* make room for bottom nav */
-  padding-bottom: 70px;
-}
 
 body[data-device="mobile"] .crm-sidebar {
   width: 100%;
@@ -1265,6 +1261,7 @@ body[data-device="mobile"] .crm-main {
   width: 100%;
   max-width: 100vw;
   min-height: 100vh;
+  padding-bottom: 70px;
 }
 
 body[data-device="mobile"] .crm-content {
