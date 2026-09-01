@@ -1040,16 +1040,55 @@ html, body {
 
 @media (max-width: 768px) {
   .crm-sidebar {
-    width: 60px;
+    width: 100%;
+    height: 70px;
+    min-height: auto;
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    padding: 8px 0;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    border-bottom: none;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+  .crm-sidebar nav {
+    flex-direction: row;
+    padding: 0;
+    gap: 4px;
+    flex: 1;
+    justify-content: space-around;
+    align-items: center;
+  }
+  .crm-sidebar .sidebar-item {
+    flex-direction: column;
+    gap: 4px;
+    padding: 6px 8px;
+    font-size: 12px;
+    min-width: 60px;
+  }
+  .crm-sidebar .sidebar-item svg {
+    width: 28px;
+    height: 28px;
   }
   .crm-sidebar .sidebar-label {
-    display: none;
+    display: block;
+    font-size: 11px;
   }
   .crm-main {
-    margin-left: 60px;
+    margin-left: 0;
+    width: 100%;
+    max-width: 100vw;
+    min-height: 100vh;
+    padding-bottom: 70px;
   }
   .crm-content {
-    padding: 20px 16px;
+    padding: 16px;
+    max-width: 100%;
   }
   .grid-cols-2,
   .grid-cols-3,
